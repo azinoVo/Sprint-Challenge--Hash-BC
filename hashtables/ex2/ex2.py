@@ -25,13 +25,17 @@ def reconstruct_trip(tickets, length):
     YOUR CODE HERE
     """
     # starting place
-    for index in range(0, length):
-        hash_table_insert(
-            hashtable, tickets[index].source, tickets[index].destination)
+    for ticket in tickets:
+        print("Ticket", ticket.source, ticket.destination)
     # setting the first and last
-    for index in length:
-        pass
+        if ticket.source is None:
+            route[0] = ticket.destination
+        elif ticket.destination is None:
+            route[-1] = ticket.source
+        print("ROUTE inside starting", route)
 
+        hash_table_insert(
+            hashtable, ticket.source, ticket.destination)
     # for each index of the route, retrieve the value whose
     # key is of the previous value and add to that route
     # setting the middle value

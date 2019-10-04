@@ -34,7 +34,6 @@ def proof_of_work(last_proof):
 
 def valid_proof(last_hash, proof):
     """
-    Note:  We are adding the hash of the last proof to a number/nonce for the new proof
 
     Validates the Proof:  Multi-ouroborus:  Do the last six characters of
     the hash of the last proof match the first six characters of the proof?
