@@ -8,6 +8,7 @@ from uuid import uuid4
 from timeit import default_timer as timer
 
 import random
+import json
 
 
 def proof_of_work(last_proof):
@@ -26,6 +27,8 @@ def proof_of_work(last_proof):
     print("Searching for next proof")
     proof = 0
     #  TODO: Your code here
+    while valid_proof(last_proof, proof) is False:
+        proof += random(1000, 15000)
 
     print("Proof found: " + str(proof) + " in " + str(timer() - start))
     return proof
@@ -33,6 +36,8 @@ def proof_of_work(last_proof):
 
 def valid_proof(last_hash, proof):
     """
+    - Note:  We are adding the hash of the last proof to a number/nonce for the new proof
+
     Validates the Proof:  Multi-ouroborus:  Do the last six characters of
     the hash of the last proof match the first six characters of the proof?
 
@@ -40,7 +45,13 @@ def valid_proof(last_hash, proof):
     """
 
     # TODO: Your code here!
-    pass
+    # Old HASH to compare and used in new hash
+    last_hash_string = json.dumps(last_hash, sort_keys=True).encode()
+    old_hash = hashlib.sha256(last_hash_string).hexdigest()
+    # New Hash using all proof
+    guess = f'{old_hash}{proof}'.encode()
+    guess_hash = hashlib.sha256(guess).hexdigest()
+    return guess_hash[:6] == old_hash[-6:]
 
 
 if __name__ == '__main__':
