@@ -32,7 +32,14 @@ def reconstruct_trip(tickets, length):
             route[0] = ticket.destination
         elif ticket.destination is None:
             route[-1] = ticket.source
-    print("hashtable", route)
+    print("route", route)
+
+    # for each index of the route, retrieve the value whose
+    # key is of the previous value and add to that route
+    for index in range(1, length-1):
+        previous = hash_table_retrieve(hashtable, route[index-1])
+        if index is None:
+            route[index] = previous
     return route
 
 
