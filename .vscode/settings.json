@@ -1,8 +1,6 @@
 {
-    "python.pythonPath": "/Users/briandoyle/.local/share/virtualenvs/sc-hash-bc-student-HSwDRd-G/bin/python",
-    "workbench.colorCustomizations": {
-        "activityBar.background": "#242E3C",
-        "titleBar.activeBackground": "#334054",
-        "titleBar.activeForeground": "#F9FAFC"
-    }
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Enabled": true,
+    "python.linting.enabled": true,
+    "python.pythonPath": "C:\\Users\\azino\\.virtualenvs\\Sprint-Challenge--Hash-BC-b8T6HBxQ\\Scripts\\python.exe"
 }

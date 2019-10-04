@@ -7,8 +7,6 @@ from uuid import uuid4
 
 from timeit import default_timer as timer
 
-import random
-
 
 def proof_of_work(last_proof):
     """
@@ -25,7 +23,10 @@ def proof_of_work(last_proof):
 
     print("Searching for next proof")
     proof = 0
-    #  TODO: Your code here
+    last_hash_string = hashlib.sha256(f'{last_proof}'.encode()).hexdigest()
+
+    while valid_proof(last_hash_string, proof) is False:
+        proof += 799
 
     print("Proof found: " + str(proof) + " in " + str(timer() - start))
     return proof
@@ -33,6 +34,7 @@ def proof_of_work(last_proof):
 
 def valid_proof(last_hash, proof):
     """
+
     Validates the Proof:  Multi-ouroborus:  Do the last six characters of
     the hash of the last proof match the first six characters of the proof?
 
@@ -40,7 +42,18 @@ def valid_proof(last_hash, proof):
     """
 
     # TODO: Your code here!
-    pass
+    # Old HASH to compare and used in new hash
+    # old_hash = hashlib.sha256(last_hash).hexdigest()
+    # New Hash using old hash and proof
+    guess = f'{proof}'.encode()
+    guess_hash = hashlib.sha256(guess).hexdigest()
+    # print(old_hash[-6:], guess_hash[:6])
+    return guess_hash[:6] == last_hash[-6:]
+
+    # last_hash = str(last_hash)
+    # guess_first_proof = str(proof).encode()
+    # guess_proof = hashlib.sha256(guess_first_proof).hexdigest()
+    # return last_hash[-6:] == guess_proof[:6]
 
 
 if __name__ == '__main__':
@@ -49,6 +62,7 @@ if __name__ == '__main__':
         node = sys.argv[1]
     else:
         node = "https://lambda-coin.herokuapp.com/api"
+        # node = "https://lambda-coin-test-1.herokuapp.com/api"
 
     coins_mined = 0
 
@@ -66,6 +80,7 @@ if __name__ == '__main__':
         # Get the last proof from the server
         r = requests.get(url=node + "/last_proof")
         data = r.json()
+        print("data from server", data)
         new_proof = proof_of_work(data.get('proof'))
 
         post_data = {"proof": new_proof,
