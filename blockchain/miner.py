@@ -28,7 +28,7 @@ def proof_of_work(last_proof):
     proof = 0
     #  TODO: Your code here
     while valid_proof(last_proof, proof) is False:
-        proof += random(1000, 15000)
+        proof += 43
 
     print("Proof found: " + str(proof) + " in " + str(timer() - start))
     return proof
@@ -51,6 +51,7 @@ def valid_proof(last_hash, proof):
     # New Hash using all proof
     guess = f'{old_hash}{proof}'.encode()
     guess_hash = hashlib.sha256(guess).hexdigest()
+    # print(old_hash[-6:], guess_hash[:6])
     return guess_hash[:6] == old_hash[-6:]
 
 
