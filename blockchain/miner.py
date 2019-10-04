@@ -28,7 +28,7 @@ def proof_of_work(last_proof):
     proof = 0
     #  TODO: Your code here
     while valid_proof(last_proof, proof) is False:
-        proof += 43
+        proof += 777777777
 
     print("Proof found: " + str(proof) + " in " + str(timer() - start))
     return proof
@@ -61,6 +61,7 @@ if __name__ == '__main__':
         node = sys.argv[1]
     else:
         node = "https://lambda-coin.herokuapp.com/api"
+        # node = "https://lambda-coin-test-1.herokuapp.com/api"
 
     coins_mined = 0
 
