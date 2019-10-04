@@ -25,21 +25,19 @@ def reconstruct_trip(tickets, length):
     YOUR CODE HERE
     """
     # starting place
-    for ticket in tickets:
+    for index in range(0, length):
         hash_table_insert(
-            hashtable, ticket.source, ticket.destination)
-        if ticket.source is None:
-            route[0] = ticket.destination
-        elif ticket.destination is None:
-            route[-1] = ticket.source
-    print("route", route)
+            hashtable, tickets[index].source, tickets[index].destination)
+    # setting the first and last
+    for index in length:
+        pass
 
     # for each index of the route, retrieve the value whose
     # key is of the previous value and add to that route
-    for index in range(1, length-1):
+    # setting the middle value
+    for index in range(1, length-2):
         previous = hash_table_retrieve(hashtable, route[index-1])
-        if index is None:
-            route[index] = previous
+        route[index] = previous
     return route
 
 
@@ -48,4 +46,4 @@ ticket_2 = Ticket("PDX", "DCA")
 ticket_3 = Ticket("DCA", "NONE")
 tickets = [ticket_1, ticket_2, ticket_3]
 result = reconstruct_trip(tickets, 3)
-print("Result", result)
+print("Returned Result", result)
